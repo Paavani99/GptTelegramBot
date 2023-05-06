@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bot.Gpt.ChatCompletion;
-import com.bot.Gpt.Content;
+import com.bot.gpt.ChatCompletion;
+import com.bot.gpt.Content;
+import com.bot.telegram.Scheduler;
 
 
 @RestController
@@ -17,10 +18,21 @@ public class BotController {
 	@Autowired
 	ChatCompletion chatCompletion;
 	
-	@PostMapping(value = "/chatgpt", produces = "application/json")
+	/*@PostMapping(value = "/chatgpt", produces = "application/json")
 	public String showResponse(@RequestBody Content req )
 	{
 		
 		return this.chatCompletion.generateChatResponse(req.content);
-	}
+	}*/
+	
+	/*
+	@Autowired
+	Scheduler scheduler;
+	
+	
+	@GetMapping("/home")
+	public String readUserMessages() {
+		return scheduler.GetChatForBot();
+	}*/
+		
 }

@@ -1,4 +1,4 @@
-package com.bot.Gpt;
+package com.bot.gpt;
 
 public class Message {
 	public String role;

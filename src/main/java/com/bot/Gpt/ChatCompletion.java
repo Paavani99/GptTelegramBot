@@ -1,4 +1,4 @@
-package com.bot.Gpt;
+package com.bot.gpt;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,19 +20,16 @@ import org.springframework.web.client.RestTemplate;
 
 //@RestController
 //@RequestMapping("home")
-@Service
+@Component
 public class ChatCompletion {
 	
 	RestTemplate restTemplate;
 	
-	//@Autowired
-	//Request req;
 	
-	@Autowired
+	
 	public ChatCompletion(RestTemplateBuilder restTemplateBuilder) {
 		this.restTemplate= restTemplateBuilder.build();
 	}
-	
 	
 	
 	public String generateChatResponse(String content){
@@ -47,15 +45,24 @@ public class ChatCompletion {
 		
 		messages.add(new Message("user", content));
 		
-		Request request = new Request(messages);
+		GptRequest request = new GptRequest(messages);
 		
-		HttpEntity<Request> httpEntity = new HttpEntity<>(request,reqHeader);
+		HttpEntity<GptRequest> httpEntity = new HttpEntity<>(request,reqHeader);
 		
-		String response = restTemplate.postForObject(uri, httpEntity, String.class );
+		try {
+			ChatResponse response = restTemplate.postForObject(uri, httpEntity, ChatResponse.class );
+			String reply = response.choices.get(0).message.content;
+			
+			return reply;
+			
+			if(reply==null)
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 		
-		return response;	
 		
+		return null;	
 	}
 	
 
