@@ -55,7 +55,7 @@ public class ChatCompletion {
 			
 			return reply;
 			
-			if(reply==null)
+			//if(reply==null)
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

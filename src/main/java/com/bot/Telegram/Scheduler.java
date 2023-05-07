@@ -35,16 +35,14 @@ public class Scheduler {
 			
 			String text = result.message.text;
 			
-			//System.out.println(text);
-			String response = chatCompletion.generateChatResponse(text);
-			//String response= "Yo! What's uppp";
-			if(response==null)botFunctions.sendMessage(chat_id, "Cannot deliver the response due to some issue" , result.update_id);
-			//System.out.println(response);
-			//LatestMessageUpdateID.setOffset(result.update_id+1);
-			boolean send = botFunctions.sendMessage(chat_id, response , result.update_id);
-			//if(!send) break;
+			String response=null;
 			
+			if(text!=null) response = chatCompletion.generateChatResponse(text);
+			else botFunctions.sendMessage(chat_id, "Cannot deliver the response due to incorrect input type" , result.update_id);
+			
+			if(response!=null) botFunctions.sendMessage(chat_id, response , result.update_id);
+			else if(text!=null) botFunctions.sendMessage(chat_id, 
+					"Cannot deliver the response. Please try again after some time." , result.update_id);
 		}
-				
 	}
 }
