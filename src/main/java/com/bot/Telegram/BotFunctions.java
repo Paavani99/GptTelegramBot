@@ -50,7 +50,7 @@ public class BotFunctions {//extends Scheduler {
 			return false;
 		}
 		
-		else {
+		if(text!=null) {
 			message = chatCompletion.generateChatResponse(text);
 			if(message == null) message = "Cannot deliver the response. Please try again after some time.";
 		}
