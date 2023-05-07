@@ -24,13 +24,10 @@ import org.springframework.web.client.RestTemplate;
 public class ChatCompletion {
 	
 	RestTemplate restTemplate;
-	
-	
-	
+		
 	public ChatCompletion(RestTemplateBuilder restTemplateBuilder) {
 		this.restTemplate= restTemplateBuilder.build();
 	}
-	
 	
 	public String generateChatResponse(String content){
 		
@@ -55,12 +52,9 @@ public class ChatCompletion {
 			
 			return reply;
 			
-			//if(reply==null)
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 		
 		return null;	
 	}

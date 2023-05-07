@@ -8,6 +8,9 @@ import com.bot.gpt.ChatCompletion;
 
 @Component
 public class Scheduler {
+	
+	//public boolean isNote= true;
+	
 	@Autowired
 	BotFunctions botFunctions;
 	
@@ -26,23 +29,24 @@ public class Scheduler {
 		
 		firstCall = false;
 		
-		for(int i=0; i< latestChats.result.size(); i++) {
-			if(latestChats.result.isEmpty()) continue;
-			
-			Result result = latestChats.result.get(i);
-			
-			String chat_id = result.message.chat.id;
-			
-			String text = result.message.text;
-			
-			String response=null;
-			
-			if(text!=null) response = chatCompletion.generateChatResponse(text);
-			else botFunctions.sendMessage(chat_id, "Cannot deliver the response due to incorrect input type" , result.update_id);
-			
-			if(response!=null) botFunctions.sendMessage(chat_id, response , result.update_id);
-			else if(text!=null) botFunctions.sendMessage(chat_id, 
-					"Cannot deliver the response. Please try again after some time." , result.update_id);
-		}
+		if(latestChats.ok)
+			for(int i=0; i< latestChats.result.size(); i++) {
+				if(latestChats.result.isEmpty()) continue;
+				
+				Result result = latestChats.result.get(i);
+				
+				String chat_id = result.message.chat.id;
+				
+				String text = result.message.text;
+				
+				//String response=null;
+				
+				//if(text!=null) response = chatCompletion.generateChatResponse(text);
+				//botFunctions.sendMessage(chat_id, "Cannot deliver the response due to incorrect input type" , result.update_id);
+				
+				//if(response==null) response= "Cannot deliver the response. Please try again after some time.";
+				
+				botFunctions.sendReply(chat_id, text , result.update_id);
+			}
 	}
 }
