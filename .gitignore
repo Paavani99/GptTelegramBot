@@ -3,6 +3,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+src/java/main/com/bot/gpt/Auth.java
+src/java/main/com/bot/telegram/BotToken.java
 
 ### STS ###
 .apt_generated
