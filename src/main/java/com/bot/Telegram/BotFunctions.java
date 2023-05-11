@@ -61,6 +61,14 @@ public class BotFunctions {//extends Scheduler {
 	public boolean runCommand(String chat_id, String text, long update_id) {
 		String message;
 		switch(text) {
+			case "/start":{
+				message="Welcome! You can control me with the below commands \n "
+						+ "\n "
+						+ "1. /askgpt - to request a question from chatgpt. All the question resquests post this command will be forwarded to chatgpt \n"
+						+ "2. /note - when you give this command, I will stop forwading the requests to chatgpt. You can enable this if you want to jot down something";
+				dictIsNote.put(chat_id, false);
+				break;
+			}
 			case "/note":{
 				message= "You can use this space to keep any notes";
 				dictIsNote.put(chat_id, true);
@@ -72,7 +80,10 @@ public class BotFunctions {//extends Scheduler {
 				break;
 			}
 			default: 
-				message = "Command not found";
+				message="Welcome! You can control me with the below commands \n "
+						+ "\n "
+						+ "1. /askgpt - to request a question to chatgpt. All the question resquests post this command will be forwarded to chatgpt\n"
+						+ "2. /note - when you give this command, I will stop forwading the requests to chatgpt. You can enable this if you want to jot down something";
 		}
 		return sendMessage(chat_id, message, update_id);
 	}
@@ -80,7 +91,7 @@ public class BotFunctions {//extends Scheduler {
 	public boolean sendMessage(String chat_id, String text, long update_id) {
 		String uriString = "https://api.telegram.org/bot%s/sendMessage?chat_id=%s&text=%s&parse_mode=HTML";
 	    try {
-			String encodedText = URLEncoder.encode(text, "UTF-8");
+			String encodedText = URLEncoder.encode(text, "UTF-8"); 
 			uriString = String.format(uriString, BotToken.token, chat_id, encodedText);
 		    URI uri = URI.create(uriString);
 	        ErrorResponse errorResponse = restTemplate.postForObject(uri, null, ErrorResponse.class);
